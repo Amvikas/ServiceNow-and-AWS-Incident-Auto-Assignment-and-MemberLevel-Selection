@@ -32,3 +32,26 @@ Automatic incident creation
 Cloud monitoring integration
 Auto-remediation engine
 ServiceNow incident updates
+
+# Python Integration Test
+
+A Python script was used to create incidents automatically using the ServiceNow Table API.
+
+Example execution:
+
+```bash
+python servicenow/create_incident.py
+```
+Result:
+```
+Status: 201
+Incident: INC0010002
+```
+
+This confirms that the ServiceNow REST API integration is working.
+
+# Screenshots
+
+![Python Execution](screenshots/python_incident_created.png)
+
+![ServiceNow Incident](screenshots/servicenow_incident_created.png)
