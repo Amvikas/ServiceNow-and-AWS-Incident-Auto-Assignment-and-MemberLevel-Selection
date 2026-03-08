@@ -52,6 +52,6 @@ This confirms that the ServiceNow REST API integration is working.
 
 # Screenshots
 
-![Python Execution](screenshots/python_incident_created.png)
+![Python Execution](screenshots/python_execution.png)
 
 ![ServiceNow Incident](screenshots/servicenow_incident_created.png)
