@@ -17,6 +17,16 @@ This project implements a **self-healing cloud infrastructure** by integrating A
 
 ![Architecture Diagram](architecture/Architecture-Diagram.png)
 
+# System Workflow
+1. EC2 instance runs the application workload.
+2. CloudWatch monitors CPU utilization.
+3. If CPU usage exceeds the threshold, an alarm is triggered.
+4. AWS Lambda invokes the ServiceNow REST API.
+5. ServiceNow automatically creates an incident.
+6. Flow Designer triggers automation.
+7. The EC2 instance is restarted automatically.
+
+
 # Features
 Automatic incident creation
 Cloud monitoring integration
