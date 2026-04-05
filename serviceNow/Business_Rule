@@ -1,0 +1,34 @@
+var desc = current.short_description.toString().toLowerCase();
+
+if (desc.indexOf('aws') >= 0) {
+    var grpGR = new GlideRecord('sys_user_group');
+    grpGR.addQuery('name', 'Cloud Operations');
+    grpGR.query();
+    if (grpGR.next()) {
+        current.assignment_group = grpGR.sys_id;
+    }
+
+    var memberGR = new GlideRecord('sys_user_grmember');
+    memberGR.addQuery('group', grpGR.sys_id);
+    memberGR.addActiveQuery();
+    memberGR.setLimit(4);
+    memberGR.query();
+
+    var members = [];
+    while (memberGR.next()) {
+        members.push(memberGR.user.toString());
+    }
+
+    if (members.length > 0) {
+        var countGR = new GlideAggregate('incident');
+        countGR.addQuery('assignment_group', grpGR.sys_id);
+        countGR.addQuery('state', 'IN', '1,2'); 
+        countGR.addAggregate('COUNT');
+        countGR.query();
+        countGR.next();
+        var total = parseInt(countGR.getAggregate('COUNT'));
+        
+        var index = total % members.length;
+        current.assigned_to = members[index];
+    }
+}
