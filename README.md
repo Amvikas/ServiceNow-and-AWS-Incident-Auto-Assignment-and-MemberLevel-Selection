@@ -8,7 +8,7 @@ This project integrates **AWS cloud monitoring** with **ServiceNow ITSM** to aut
 
 ## Architecture
 
-serviceNow+AWS.png
+![ServiceNow + AWS](serviceNow+AWS.png)
 
 This project started as a way to solve a real problem I kept running into — whenever an AWS EC2 instance spiked in CPU usage, someone had to manually check CloudWatch, figure out what happened, create a ticket in ServiceNow, and then assign it to the right person on the Cloud Operations team. That whole process was slow and error-prone, especially when it happened outside business hours.
 So I built a small integration that handles all of that automatically. When CloudWatch detects CPU utilization crossing 70%, it triggers a Lambda function that hits the ServiceNow REST API and creates an incident on its own. From there, a Business Rule inside ServiceNow takes over — it checks whether the incident came from AWS, sets the assignment group to Cloud Operations, and then picks a specific team member to assign it to using a round-robin approach across the active members of that group.
